@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :answer do
-    title { "MyString" }
-    survey_id { 1 }
-    question_id { 1 }
+    answer
+    survey_id { nil }
+    question_id { nil }
   end
 end

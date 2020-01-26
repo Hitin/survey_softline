@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :survey do
-    title { "MyString" }
-    author_id { 1 }
-    question_id { 1 }
+    title
+    author_id { nil }
   end
 end
