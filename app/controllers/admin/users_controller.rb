@@ -28,11 +28,18 @@ class Admin::UsersController < Admin::ApplicationController
 
   def update
     @user = User.find(params[:id])
+    
     if @user.update(user_params)
       redirect_to admin_users_url
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_users_url
   end
 
   private
