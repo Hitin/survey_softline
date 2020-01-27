@@ -28,4 +28,9 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get create" do
+    user = attributes_for(:user)
+    post admin_users_url, params: { user: user }
+    assert_response :redirect
+  end
 end
