@@ -16,4 +16,16 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     get admin_users_url
     assert_response :success
   end
+
+  test "should get edit" do
+    user = create(:user)
+    get edit_admin_user_url(user)
+    assert_response :success
+  end
+
+  test "should get new" do
+    get new_admin_user_url
+    assert_response :success
+  end
+
 end
