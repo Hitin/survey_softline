@@ -26,6 +26,15 @@ class Admin::UsersController < Admin::ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to admin_users_url
+    else
+      render :edit
+    end
+  end
+
   private
 
   def user_params
