@@ -7,11 +7,11 @@ class Api::V1::AnswersController < Api::V1::ApplicationController
       .result
       .page(params[:page])
       .per(params[:per_page])
-      .includes(:author)
+      .includes(:survey, :question)
 
 
     json = {
-        items: answers.map { |s| AnswerSerializer.new(s).as_json },
+        items: answers.map { |a| AnswerSerializer.new(a).as_json },
         meta: build_meta_surveys(answers)
     }
 
