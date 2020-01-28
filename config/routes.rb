@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :surveys, only: [:index, :show, :create, :update, :destroy]
       resources :questions, only: [:index, :show, :create, :update, :destroy]
+      resources :answers, only: [:index, :show, :create, :update, :destroy]
     end
   end
 
