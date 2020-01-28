@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :question do
-    question
+    title
     position
     type_question
     survey_id { nil }

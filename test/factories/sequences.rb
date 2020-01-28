@@ -18,7 +18,7 @@ FactoryBot.define do
     "email#{n}@factory.com"
   end
   sequence :title do |n|
-    "survey#{n}"
+    "title#{n}"
   end
   sequence :question do |n|
     "question#{n}"
