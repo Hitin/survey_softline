@@ -3,7 +3,7 @@ require 'test_helper'
 class Api::V1::AnswersControllerTest < ActionController::TestCase
   test "should get show" do
     author = create :user
-    survey = create :survey, author: author
+    survey = create :survey, :with_author
     question = create :question, author: author, survey: survey
     answer = create :answer, survey: survey, question: question
     get :show, params: { id: answer.id, format: :json }
@@ -17,8 +17,8 @@ class Api::V1::AnswersControllerTest < ActionController::TestCase
 
   test "should post create" do
     author = create :user
-    survey = create :survey, author: author
-    question = create :question, author: author, survey: survey
+    survey = create :survey, :with_author
+    question = create :question, :with_author, survey: survey
     answer = create :answer, survey: survey, question: question
     answer_attributes = attributes_for(:answer)
       .merge({ survey_id: survey.id, question_id: question.id })
@@ -35,8 +35,8 @@ class Api::V1::AnswersControllerTest < ActionController::TestCase
 
   test 'should put update' do
     author = create :user
-    survey = create :survey, author: author
-    question = create :question, author: author, survey: survey
+    survey = create :survey, :with_author
+    question = create :question, :with_author, survey: survey
     answer = create :answer, survey: survey, question: question
     answer_attributes = attributes_for(:answer)
       .merge({ survey_id: survey.id, question_id: question.id })
@@ -49,9 +49,9 @@ class Api::V1::AnswersControllerTest < ActionController::TestCase
   end
 
   test 'should delete destroy' do
-     author = create :user
-    survey = create :survey, author: author
-    question = create :question, author: author, survey: survey
+    author = create :user
+    survey = create :survey, :with_author
+    question = create :question, :with_author, survey: survey
     answer = create :answer, survey: survey, question: question
     
     delete :destroy, params: { id: answer.id, format: :json }

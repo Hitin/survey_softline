@@ -2,8 +2,7 @@ require 'test_helper'
 
 class Api::V1::SurveysControllerTest < ActionController::TestCase
   test "should get show" do
-    author = create :user
-    survey = create :survey, author: author
+    survey = create(:survey, :with_author)
     get :show, params: { id: survey.id, format: :json }
     assert_response :success
   end

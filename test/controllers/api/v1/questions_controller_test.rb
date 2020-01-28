@@ -2,9 +2,8 @@ require 'test_helper'
 
 class Api::V1::QuestionsControllerTest < ActionController::TestCase
   test "should get show" do
-    author = create :user
-    survey = create :survey, author: author
-    question = create :question, author: author, survey: survey
+    survey = create :survey, :with_author
+    question = create :question, :with_author, survey: survey
     get :show, params: { id: question.id, format: :json }
     assert_response :success
   end
@@ -16,7 +15,7 @@ class Api::V1::QuestionsControllerTest < ActionController::TestCase
 
   test "should post create" do
     author = create :user
-    survey = create :survey, author: author
+    survey = create :survey, :with_author
     sign_in(author)
     question_attributes = attributes_for(:question)
       .merge({ survey_id: survey.id })
@@ -34,7 +33,7 @@ class Api::V1::QuestionsControllerTest < ActionController::TestCase
 
   test 'should put update' do
     author = create :user
-    survey = create :survey, author: author
+    survey = create :survey, :with_author
     sign_in(author)
     question = create :question, author: author, survey: survey
     question_attributes = attributes_for(:question)
@@ -51,7 +50,7 @@ class Api::V1::QuestionsControllerTest < ActionController::TestCase
 
   test 'should delete destroy' do
     author = create :user
-    survey = create :survey, author: author
+    survey = create :survey, :with_author
     sign_in(author)
     question = create :question, author: author, survey: survey
     delete :destroy, params: { id: question.id, format: :json }
