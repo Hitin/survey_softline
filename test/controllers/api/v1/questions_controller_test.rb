@@ -16,8 +16,10 @@ class Api::V1::QuestionsControllerTest < ActionController::TestCase
 
   test "should post create" do
     author = create :user
+    survey = create :survey, author: author
     sign_in(author)
     question_attributes = attributes_for(:question)
+      .merge({ survey_id: survey.id })
     post :create, params: { question: question_attributes, format: :json }
     assert_response :created
 
@@ -32,9 +34,11 @@ class Api::V1::QuestionsControllerTest < ActionController::TestCase
 
   test 'should put update' do
     author = create :user
+    survey = create :survey, author: author
     sign_in(author)
-    question = create :question, author: author
+    question = create :question, author: author, survey: survey
     question_attributes = attributes_for(:question)
+      .merge({ survey_id: survey.id })
 
     patch :update, params: { id: question.id, format: :json, question: question_attributes }
     assert_response :success
@@ -47,8 +51,9 @@ class Api::V1::QuestionsControllerTest < ActionController::TestCase
 
   test 'should delete destroy' do
     author = create :user
+    survey = create :survey, author: author
     sign_in(author)
-    question = create :question, author: author
+    question = create :question, author: author, survey: survey
     delete :destroy, params: { id: question.id, format: :json }
     assert_response :success
 
