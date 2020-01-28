@@ -33,6 +33,26 @@ class Api::V1::SurveysController < Api::V1::ApplicationController
     end
   end
 
+  def update
+    survey = current_user.my_surveys.find(params[:id])
+
+    if survey.update(survey_params)
+      render(json: survey)
+    else
+      render(json: { errors: survey.errors.messages }, status: :unprocessable_entity)
+    end
+  end
+
+  def destroy
+    survey = current_user.my_surveys.find(params[:id])
+
+    if survey.destroy
+      head(:ok)
+    else
+      render(json: { errors: survey.errors.messages }, status: :unprocessable_entity)
+    end
+  end
+
   private
 
   def survey_params

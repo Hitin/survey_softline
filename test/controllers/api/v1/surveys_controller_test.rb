@@ -24,10 +24,34 @@ class Api::V1::SurveysControllerTest < ActionController::TestCase
     created_survey = Survey.find(data['id'])
 
     survey_attributes = survey_attributes.merge({ author_id: author.id })
-    
 
     assert created_survey.present?
     assert_equal survey_attributes.stringify_keys, created_survey.slice(*survey_attributes.keys)
+  end
+
+  test 'should put update' do
+    author = create :user
+    sign_in(author)
+    survey = create :survey, author: author
+    survey_attributes = attributes_for(:survey)
+
+    patch :update, params: { id: survey.id, format: :json, survey: survey_attributes }
+    assert_response :success
+
+    survey_attributes = survey_attributes.merge({ author_id: author.id })
+
+    survey.reload
+    assert_equal survey.slice(*survey_attributes.keys), survey_attributes.stringify_keys
+  end
+
+  test 'should delete destroy' do
+    author = create :user
+    sign_in(author)
+    survey = create :survey, author: author
+    delete :destroy, params: { id: survey.id, format: :json }
+    assert_response :success
+
+    assert !Survey.where(id: survey.id).exists?
   end
 
 end
